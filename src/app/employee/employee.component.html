@@ -1,0 +1,136 @@
+<div class="w3-container text-center">
+  <br>
+  <h2>ข้อมูลพนักงานทั้งหมด</h2>
+  <hr>
+  <br>
+</div>
+
+<div class="w3-container">
+  <table class="table table-hover table-borderless">
+    <thead class="bg-success">
+      <tr>
+        <th scope="col">รหัสพนักงาน</th>
+        <th scope="col">ชื่อ</th>
+        <th scope="col">นามสกุล</th>
+        <th scope="col">ผู้ใช้</th>
+        <th scope="col">รหัสผ่าน</th>
+        <th scope="col">เบอร์โทรศัพท์</th>
+        <th scope="col">ตำแหน่ง</th>
+        <th scope="col">จัดการ</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of showEmployee; let i = index">
+
+      <tr>
+        <th scope="col">{{item.EmployeeID}}</th>
+        <th scope="col">{{item.FirstName}}</th>
+        <th scope="col">{{item.LastName}}</th>
+        <th scope="col">{{item.Username}}</th>
+        <th scope="col">{{item.Password}}</th>
+        <th scope="col">{{item.Tel}}</th>
+        <th scope="col">{{item.position}}</th>
+        <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal" (click)="updateEmp(item.EmployeeID,item.FirstName
+              ,item.LastName,item.Username,item.Password,item.Tel,item.position)">
+          แก้ไข
+        </button>
+        &nbsp;
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal4"
+          (click)="deleteEmp(item.EmployeeID,item.FirstName)">
+          ลบ
+        </button>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal แก้ไข-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">แก้ไขข้อมูล</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">รหัสพนักงาน </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [formControl]="EmployeeID">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">ชื่อ </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [formControl]="FirstName">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">นามสกุล </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [formControl]="LastName">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">ชื่อผู้ใช้ </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [formControl]="Username">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">รหัสผ่าน </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [formControl]="Password">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">เบอร์โทรศัพท์ </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [formControl]="Tel">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">ตำแหน่ง </label>
+            <div class="col-sm-10">
+              <select class="form-control" [formControl]="position">
+                <option value="ผู้จัดการ">ผู้จัดการ</option>
+                <option value="พนักงาน">พนักงาน</option>
+              </select>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateEmployee()">บันทึก</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ลบ -->
+<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ลบข้อมูล</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        คุณจะลบประวัติ {{ FirstName_Show }} หรือไม่
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="ondelete()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

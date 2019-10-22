@@ -1,0 +1,93 @@
+<div class="sidebar">
+  <div class="list-group" id="list-tab" role="tablist">
+    <a class="active list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab"
+      aria-controls="home"><i class="fas fa-home"></i> Home</a>
+    <a class="list-group-item-action" id="list-product-list" data-toggle="list" href="#list-product" role="tab"
+      aria-controls="product"><i class="fas fa-id-card-alt"></i> Product</a>
+    <a class="list-group-item-action" id="list-login-list" data-toggle="list" href="#list-login" role="tab"
+      aria-controls="login"><i class="fas fa-sign-in-alt"></i> Login</a>
+
+  </div>
+</div>
+
+
+<div class="tab-content" id="nav-tabContent">
+
+  <!-------------------------------------- Page home ---------------------------------------------------------->
+  <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+    <div class="container-fluid bg-1 text-center">
+      <br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <B>
+        <h1 class="w3-wide">ระบบบริหารจัดการคลังสินค้า</h1>
+      </B>
+      <h1>Warehouse management system</h1>
+    </div>
+  </div>
+
+  <!-------------------------------------- Page Product ---------------------------------------------------------->
+  <div align='center' class="tab-pane fade" id="list-product" role="tabpanel" aria-labelledby="list-product-list">
+    <div class="w3-content w3-padding" style="max-width:1564px">
+      <!-- Product Type -->
+      <div class="w3-container w3-padding-32" id="product">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16"><i class="fas fa-warehouse"></i>
+          รายการสินค้าทั้งหมด
+        </h3>
+      </div>
+
+
+      <div class="card-columns">
+        <div class="card" *ngFor="let item of show; let i = index">
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <div class="w3-display-topleft w3-black w3-padding">{{item.ProductName}}</div>
+            <img src="{{item.Image}}" style="width:230px; height: 300px;" class="img-thumbnail" ar />
+            <div class="p-3 mb-2 bg-success text-white text-center">
+              จำนวนทั้งหมด {{item.Quantity}} ชิ้น <br>
+              ราคา {{item.Price}} บาท
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!--------------------------------------page login----------------------------------------------->
+  <div class="tab-pane fade" id="list-login" role="tabpanel" aria-labelledby="list-login-list">
+
+    <div class="container">
+      <div class="card card-login mx-auto text-center bg-dark">
+        <div class="card-header mx-auto bg-dark">
+          <span> <img src="https://amar.vote/assets/img/amarVotebd.png" class="w-75" alt="Logo"> </span><br />
+          <span class="logo_title mt-5"> LOGIN </span>
+
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+              </div>
+              <input name="Username" class="form-control" placeholder="Username" #u>
+            </div>
+
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+              </div>
+              <input type="password" name="password"  class="form-control" placeholder="Password" #p>
+            </div>
+
+            <div class="form-group">
+              <button type="submit" name="btn" value="Login" class="btn btn-outline-danger float-right login_btn"
+                (click)="click(u.value,p.value)">Login</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

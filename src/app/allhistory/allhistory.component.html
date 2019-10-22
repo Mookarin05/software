@@ -1,0 +1,36 @@
+<div class="w3-container text-center">
+    <br>
+    <h2>ประวัติการเบิกของพนักงานทั้งหมด</h2>
+    <hr>
+    <br>
+</div>
+
+<div class="w3-container">
+    <table class="table table-hover table-borderless">
+        <thead class="bg-success">
+            <tr>
+                <th scope="col">รหัสพนักงาน</th>
+                <th scope="col">ชื่อ</th>
+                <th scope="col">นามสกุล</th>
+                <th scope="col">ผู้ใช้</th>
+                <th scope="col">รหัสผ่าน</th>
+                <th scope="col">เบอร์โทรศัพท์</th>
+                <th scope="col">ตำแหน่ง</th>
+                <th scope="col">จัดการ</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of showEmployee; let i = index">
+
+            <tr>
+                <th scope="col">{{item.EmployeeID}}</th>
+                <th scope="col">{{item.FirstName}}</th>
+                <th scope="col">{{item.LastName}}</th>
+                <th scope="col">{{item.Username}}</th>
+                <th scope="col">{{item.Password}}</th>
+                <th scope="col">{{item.Tel}}</th>
+                <th scope="col">{{item.position}}</th>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

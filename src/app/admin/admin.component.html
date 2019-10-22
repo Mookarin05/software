@@ -1,0 +1,341 @@
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <div class="w3-left w3-hide-small">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link w3-bar-item w3-button" data-toggle="modal" data-target="#exampleModal3">
+            <i class="fas fa-address-card"></i>เพิ่มสิทธิพนักงาน</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link w3-bar-item w3-button" [routerLink]="['/employee']">
+            <i class="fas fa-address-book"></i>ข้อมูลพนักงาน</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link w3-bar-item w3-button" [routerLink]="['/allhistory']">
+            <i class="fas fa-address-book"></i>ประวัติการเบิกสินค้าทั้งหมด</a>
+        </li>
+      </ul>
+    </div> 
+    <div class="w3-right w3-hide-small">
+      <a class="w3-bar-item "><i class="fas fa-user-cog"></i>{{name}} {{Lastname}}</a>
+      <button type="button" class="btn btn-success" (click)="click()">ออกจากระบบ</button>
+    </div>
+  </div>
+</div>
+
+<br><br><br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-4 col-sm-6 col-md-4">
+      <div class="card text-white bg-info border-warning mb-5" style="max-width: 18rem;" type="button"
+        data-toggle="modal" data-target="#exampleModal">
+        <div class="card-body">
+          <h4 class="card-title text-center">เพิ่มสินค้า</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+    </div>
+
+    <!-- <div class="col-12 col-md-4">
+      <div class="card text-white bg-warning border-primary mb-5" style="max-width: 18rem;" type="button"
+        data-toggle="modal" data-target="#exampleModal1">
+        <div class="card-body">
+          <h4 class="card-title text-center">เบิกสินค้า</h4>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+
+
+<div class="w3-content w3-padding" style="max-width:1564px">
+  <!-- Product Type -->
+  <div class="w3-container w3-padding-32" id="product">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16 text-center"><i class="fas fa-warehouse"></i>
+      รายการสินค้าทั้งหมด
+    </h3>
+  </div>
+
+  <div align='center' class="row">
+    <div class="col-3" *ngFor="let item of show; let i = index">
+      <!-- <div class="card-columns"> -->
+      <div class="card" (mouseover)="updatePro(item.ProductID,item.CategoryID,item.ProductName,item.Quantity,item.Price,item.Image)">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <div class="w3-display-topleft w3-black w3-padding">{{item.ProductName}}</div>
+          <img src="{{item.Image}}" style="width:230px; height: 300px;" class="img-thumbnail" />
+          <div class="p-3 mb-2 bg-success text-white text-center">
+            จำนวนทั้งหมด {{item.Quantity}} ชิ้น <br>
+            ราคา {{item.Price}} บาท <br>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal6"
+            (click)="updatePro(item.ProductID,item.CategoryID,item.ProductName,item.Quantity,item.Price)"
+              >แก้ไข</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal"
+              data-target="#exampleModal1" (click)="showwith(item.EmployeeID,item.ProductID)">เบิกสินค้า</button>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+    </div>
+  </div>
+
+  <!-- Modal เพิ่มสินค้า-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">เพิ่มสินค้า</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+           
+          <form>
+            <div class="form-group row">
+              <label for="text" class="col-sm-3 col-form-label">รหัสสินค้า : </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" [formControl]="ProductID">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text" class="col-sm-3 col-form-label">ประเภทสินค้า : </label>
+              <div class="col-sm-9">
+                <select class="form-control" [formControl]="CategoryID">
+                  <option>เลือกประเภทสินค้า</option>
+                  <option value="1">สินค้า อาหารสุนัข</option>
+                  <option value="2">สินค้า อาหารแมว</option>
+                  <option value="3">สินค้า อาหารนก</option>
+                  <option value="4">สินค้า อาหารเสริม</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text" class="col-sm-3 col-form-label">ชื่อสินค้า : </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" [formControl]="ProductName">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text" class="col-sm-3 col-form-label">จำนวนสินค้า : </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" [formControl]="Quantity">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text" class="col-sm-3 col-form-label">ราคาสินค้า/ชิ้น: </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" [formControl]="Price">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text" class="col-sm-3 col-form-label">รูปภาพสินค้า : </label>
+              <div class="col-sm-9">
+                <input type="file" class="form-control-file" id="exampleFormControlFile1" [formControl]="Image">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+          <button type="button" class="btn btn-primary" (click)="updateproduct()">ตกลง</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal เบิกสินค้า-->
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">เบิกสินค้า</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form>
+            <div class="form-group row">
+              <label for="text" class="col-sm-3 col-form-label">รหัสพนักงาน :  </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" value= {{Emp_ID}} [formControl]="EmployeeID">
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="text" class="col-sm-3 col-form-label">รหัสสินค้า : </label>
+                <div class="col-sm-9">
+                  <input id="ProductID" name="ProductID" type="text" class="form-control" value= {{withdraw_Show}} [formControl]="ProductID">
+                </div>
+              </div>
+            <div class="form-group row">
+              <label for="text" class="col-sm-3 col-form-label">จำนวนสินค้า : </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" [formControl]="withdrawNum">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text" class="col-sm-3 col-form-label">วันที่ : </label>
+              <div class="col-sm-9">
+                <input type="date" class="form-control" [formControl]="date">
+              </div>
+            </div>
+
+          </form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+            <button type="button" class="btn btn-primary" (click)="withdraw()">ตกลง</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal แก้ไขสินค้า-->
+  <div class="modal fade" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">แก้ไขสินค้าสินค้า</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+            <form>
+                <div class="form-row">
+                    <div class="col-md-7 mb-3">
+                        <label for="validationDefault01">รหัสสินค้า :</label>
+                        <input type="text" class="form-control" [formControl]="ProductID">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-7 mb-3">
+                        <label for="validationDefault02">ประเภทสินค้า :</label>
+                        <select class="form-control" [formControl]="CategoryID">
+                            <option>เลือกประเภทสินค้า</option>
+                            <option value="1">สินค้า อาหารสุนัข</option>
+                            <option value="2">สินค้า อาหารแมว</option>
+                            <option value="3">สินค้า อาหารนก</option>
+                            <option value="4">สินค้า อาหารเสริม</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-7 mb-3">
+                        <label for="validationDefault03">ชื่อสินค้า :</label>
+                        <input type="text" class="form-control"[formControl]="ProductName" >
+                    </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-7 mb-3">
+                      <label for="validationDefault055">จำนวนสินค้า :</label>
+                      <input type="text" class="form-control"[formControl]="Quantity" >
+                  </div>
+              </div>
+                <div class="form-row">
+                    <div class="col-md-7 mb-3">
+                        <label for="validationDefault04">ราคาสินค้า/ชิ้น:</label>
+                        <input type="text" class="form-control"[formControl]="Price" >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-7 mb-3">
+                        <label for="validationDefault05">รูปภาพสินค้า :</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1" [formControl]="Image">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+          <button type="button" class="btn btn-primary" (click)="updateproduct()">ตกลง</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Modal เพิ่มสิทธิพนักงาน-->
+  <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">เพิ่มสิทธิพนักงาน</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">รหัสพนักงาน </label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" [formControl]="EmployeeID">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">ชื่อ </label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" [formControl]="FirstName">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">นามสกุล </label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" [formControl]="LastName">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">ชื่อผู้ใช้ </label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" [formControl]="Username">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">รหัสผ่าน </label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" [formControl]="Password">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">เบอร์โทรศัพท์ </label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" [formControl]="Tel">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">ตำแหน่ง </label>
+              <div class="col-sm-10">
+                <select class="form-control" [formControl]="position">
+                  <option value="ผู้จัดการ">ผู้จัดการ</option>
+                  <option value="พนักงาน">พนักงาน</option>
+                </select>
+              </div>
+            </div>
+
+          </form>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+            <button type="button" class="btn btn-primary" (click)="InsertEmployee()">ตกลง</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

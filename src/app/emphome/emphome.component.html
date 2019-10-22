@@ -1,0 +1,94 @@
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+      <div class="w3-left w3-hide-small">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link w3-bar-item w3-button" [routerLink]="['/history']">
+                <i class="fas fa-address-card"></i>ประวัติการเบิกสินค้า</a>
+            </li>
+          </ul>
+      </div>
+
+    <div class="w3-right w3-hide-small">
+      <a class="w3-bar-item "><i class="fas fa-user-cog"></i>{{name}} {{Lastname}}</a>
+      <button type="button" class="btn btn-success" (click)="click()">ออกจากระบบ</button>
+    </div>
+  </div>
+</div>
+<br><br><br><br>
+<div class="container">
+  <div class="card text-white bg-warning border-primary" style="max-width: 18rem; margin: 0 auto;" type="button" data-toggle="modal"
+    data-target="#exampleModal1">
+    <div class="card-body">
+      <h4 class="card-title text-center">เบิกสินค้า</h4>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="w3-content w3-padding" style="max-width:1564px">
+  <!-- Product Type -->
+  <div class="w3-container w3-padding-32" id="product">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16 text-center"><i class="fas fa-warehouse"></i>
+      รายการสินค้าทั้งหมด
+    </h3>
+  </div>
+
+  <div align='center' class="row">
+    <div class="col-3" *ngFor="let item of show; let i = index">
+      <!-- <div class="card-columns"> -->
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <div class="w3-display-topleft w3-black w3-padding">{{item.ProductName}}</div>
+          <img src="{{item.Image}}" style="width:230px; height: 300px;" class="img-thumbnail" />
+          <div class="p-3 mb-2 bg-success text-white text-center">
+            จำนวนทั้งหมด {{item.Quantity}} ชิ้น <br>
+            ราคา {{item.Price}} 
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+    </div>
+  </div>
+
+
+  <!-- Modal เบิกสินค้า-->
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">เบิกสินค้า</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form>
+            <div class="form-group row">
+              <label for="text" class="col-sm-3 col-form-label">รหัสสินค้า : </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="text" class="col-sm-3 col-form-label">จำนวนสินค้า : </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control">
+              </div>
+            </div>
+
+          </form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+            <button type="button" class="btn btn-primary">ตกลง</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
